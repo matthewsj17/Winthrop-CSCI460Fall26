@@ -79,3 +79,45 @@ for i in random_array:
 task2df = pd.DataFrame(arr, columns=['Accuracy','F1 Score'])
 task2df.index.name = 'Testing Iteration'
 task2df.to_csv('task2results.csv')
+
+# Task III: report impact of splitting the data 
+
+def ttsProg(seed, testSize):
+    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=testSize, random_state=seed, shuffle=True, stratify=y)
+    model = GaussianNB()
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_pred, y_test) 
+    f1 = f1_score(y_pred, y_test, average="weighted") 
+    return [accuracy, f1]
+
+testSizes = [0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.30, 0.20, 0.10]
+
+bigDict = {}
+
+for test in testSizes:
+    tempArr = []
+    for i in range(10):
+        tempArr.append(ttsProg(i, test))
+    bigDict[f'Test_{test}'] = tempArr
+
+bigDict
+
+task3DF = pd.DataFrame.from_dict(bigDict)
+task3DF
+task3accuracy = pd.DataFrame()
+task3std = pd.DataFrame()
+for column in task3DF.columns:
+    acc = []
+    std = []
+    for row in task3DF[column]:
+        acc.append(row[0])
+        std.append(row[1])
+
+    task3accuracy[column] = acc
+    task3std[column] = std
+# Extract Data and Create Meaningful INformation From it.  
+# test90arr = bigDict['Test_0.9']
+# task3DF.to_csv('task3results.csv')
+task3std.to_csv('std3results.csv')
+task3accuracy.to_csv('acc3results.csv')
