@@ -1,3 +1,15 @@
+######################################################
+
+#  Student Name: Jake Matthews
+
+#  Course Code: CSCI 460 -- Fall 2026
+
+#  Assignment Due Date: 10/25/26
+
+#  GitHub Link: https://github.com/matthewsj17/Winthrop-CSCI460Fall26/tree/main/Assignment1
+
+######################################################
+
 # Task I: Data Download
 import pandas as pd
 import numpy as np
@@ -47,14 +59,7 @@ from sklearn.metrics import (
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3, shuffle=True, stratify=y)
 
 model = GaussianNB()
-model.fit(X_train, y_train)
-
-
-# Getting Results.
-y_pred = model.predict(X_test)
-# measure the performance 
-accuracy = accuracy_score(y_pred, y_test) 
-f1 = f1_score(y_pred, y_test, average="weighted") 
+model.fit(X_train, y_train) 
 
 def runProg(seed):
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3, random_state=seed, shuffle=True, stratify=y)
@@ -64,7 +69,6 @@ def runProg(seed):
     accuracy = accuracy_score(y_pred, y_test) 
     f1 = f1_score(y_pred, y_test, average="weighted") 
     return [accuracy, f1]
-
 
 
 # create seed values, attempting to do 'true random'
