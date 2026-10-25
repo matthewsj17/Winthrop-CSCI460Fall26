@@ -97,31 +97,28 @@ def ttsProg(seed, testSize):
 
 testSizes = [0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.30, 0.20, 0.10]
 
-bigDict = {}
+allDict = {}
 
 for test in testSizes:
     tempArr = []
     for i in range(10):
         tempArr.append(ttsProg(i, test))
-    bigDict[f'Test_{test}'] = tempArr
+    allDict[f'Test_{test}'] = tempArr
 
-bigDict
 
-task3DF = pd.DataFrame.from_dict(bigDict)
+task3DF = pd.DataFrame.from_dict(allDict)
 task3DF
 task3accuracy = pd.DataFrame()
-task3std = pd.DataFrame()
+task3f1 = pd.DataFrame()
 for column in task3DF.columns:
     acc = []
-    std = []
+    f1 = []
     for row in task3DF[column]:
         acc.append(row[0])
-        std.append(row[1])
+        f1.append(row[1])
 
     task3accuracy[column] = acc
-    task3std[column] = std
-# Extract Data and Create Meaningful INformation From it.  
-# test90arr = bigDict['Test_0.9']
-# task3DF.to_csv('task3results.csv')
-task3std.to_csv('std3results.csv')
+    task3f1[column] = f1
+
+task3f1.to_csv('f13results.csv')
 task3accuracy.to_csv('acc3results.csv')
